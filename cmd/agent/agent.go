@@ -40,17 +40,14 @@ func main() {
 		syscall.SIGTERM,
 		syscall.SIGQUIT)
 
-	wg.Add(1)
-	go func(wg *sync.WaitGroup) {
-		for {
-			s := <-signalChanel
-			switch s {
-			case syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
-				cancel()
-				wg.Done()
-				return
-			}
+LOOP:
+	for {
+		s := <-signalChanel
+		switch s {
+		case syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
+			cancel()
+			break LOOP
 		}
-	}(wg)
+	}
 	wg.Wait()
 }

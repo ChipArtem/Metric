@@ -79,6 +79,7 @@ func (a *Agent) sendMetric(ch chan<- models.Metric) {
 }
 
 func (a *Agent) startSend(ctx context.Context, wg *sync.WaitGroup, ch <-chan models.Metric) {
+	defer wg.Done()
 LOOP:
 	for {
 		select {
@@ -88,7 +89,6 @@ LOOP:
 			a.transport.SendMetric(v)
 		}
 	}
-	wg.Done()
 }
 
 func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitGroup) {
@@ -102,7 +102,7 @@ func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitG
 
 	wg.Add(1)
 	go func() {
-
+		defer wg.Done()
 	LOOP:
 		for {
 			select {
@@ -115,6 +115,5 @@ func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitG
 				a.sendMetric(mCh)
 			}
 		}
-		wg.Done()
 	}()
 }

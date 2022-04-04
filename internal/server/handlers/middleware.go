@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/ChipArtem/Metric/internal/server/validator"
@@ -14,7 +13,6 @@ func (m *metricHandler) MiddlewareCheckHost(next http.Handler) http.Handler {
 		if r.RequestURI != "/" {
 			vars := mux.Vars(r)
 			mType := vars["mtype"]
-			fmt.Println("\n\n\n\n\n\n\n\n\n\n\n\n\n")
 			if !validator.IsMType(mType) {
 				http.Error(w, ``, http.StatusNotImplemented)
 				return
