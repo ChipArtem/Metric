@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"MyMetric/internal/models"
-	"MyMetric/internal/server/validator"
+	"github.com/ChipArtem/Metric/internal/models"
+	"github.com/ChipArtem/Metric/internal/server/validator"
 
 	"github.com/gorilla/mux"
 )
@@ -59,8 +59,8 @@ func (m *metricHandler) SetMetric(w http.ResponseWriter, r *http.Request) {
 
 func (m *metricHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	dir, _ := os.Getwd()
-	path := strings.Split(dir, "MyMetric")[0]
-	tmpl := template.Must(template.ParseFiles(path + "/MyMetric/internal/template/index.html"))
+	path := strings.Split(dir, "Metric")[0]
+	tmpl := template.Must(template.ParseFiles(path + "/Metric/internal/template/index.html"))
 
 	metrics := m.bl.GetAll()
 	tmpl.Execute(w, struct{ Metrics []models.Metric }{metrics})

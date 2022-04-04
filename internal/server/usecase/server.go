@@ -3,7 +3,7 @@ package usecase
 import (
 	"strconv"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 type MetricRepositorer interface {

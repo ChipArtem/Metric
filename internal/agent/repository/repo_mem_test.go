@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 
 	"github.com/stretchr/testify/assert"
 )

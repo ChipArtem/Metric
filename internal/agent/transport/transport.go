@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 type HTTPclient struct {

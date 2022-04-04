@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 type MetricStorer interface {

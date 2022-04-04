@@ -8,11 +8,11 @@ import (
 	"sync"
 	"syscall"
 
-	"MyMetric/internal/agent"
-	delaultMetrics "MyMetric/internal/agent/delault_metrics"
-	repositiry "MyMetric/internal/agent/repository"
-	trackingMetricStore "MyMetric/internal/agent/tracking_metric_store"
-	"MyMetric/internal/agent/transport"
+	"github.com/ChipArtem/Metric/internal/agent"
+	delaultMetrics "github.com/ChipArtem/Metric/internal/agent/delault_metrics"
+	repositiry "github.com/ChipArtem/Metric/internal/agent/repository"
+	trackingMetricStore "github.com/ChipArtem/Metric/internal/agent/tracking_metric_store"
+	"github.com/ChipArtem/Metric/internal/agent/transport"
 )
 
 func main() {

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"sync"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 type RepoMem struct {

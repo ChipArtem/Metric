@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"MyMetric/internal/server/handlers"
-	"MyMetric/internal/server/repository"
-	"MyMetric/internal/server/usecase"
+	"github.com/ChipArtem/Metric/internal/server/handlers"
+	"github.com/ChipArtem/Metric/internal/server/repository"
+	"github.com/ChipArtem/Metric/internal/server/usecase"
 
 	"github.com/gorilla/mux"
 )

@@ -1,4 +1,4 @@
-module MyMetric
+module github.com/ChipArtem/Metric
 
 go 1.18
 

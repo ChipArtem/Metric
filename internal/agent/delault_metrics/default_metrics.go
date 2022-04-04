@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"strconv"
 
-	"MyMetric/internal/agent/helpers"
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/agent/helpers"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 func funcUpdateRuntime(args ...interface{}) (string, error) {

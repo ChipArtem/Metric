@@ -3,7 +3,7 @@ package trackingmetricstore
 import (
 	"sync"
 
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 type TrackingMetrics struct {

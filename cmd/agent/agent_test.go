@@ -5,10 +5,10 @@ import (
 	"sync"
 	"testing"
 
-	"MyMetric/internal/agent"
-	repositiry "MyMetric/internal/agent/repository"
-	trackingMetricStore "MyMetric/internal/agent/tracking_metric_store"
-	"MyMetric/internal/models"
+	"github.com/ChipArtem/Metric/internal/agent"
+	repositiry "github.com/ChipArtem/Metric/internal/agent/repository"
+	trackingMetricStore "github.com/ChipArtem/Metric/internal/agent/tracking_metric_store"
+	"github.com/ChipArtem/Metric/internal/models"
 
 	"github.com/stretchr/testify/assert"
 )
