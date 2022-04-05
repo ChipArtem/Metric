@@ -3,10 +3,7 @@ package main
 import (
 	"context"
 	"net/http"
-	"os"
-	"os/signal"
 	"sync"
-	"syscall"
 
 	"github.com/ChipArtem/Metric/internal/agent"
 	delaultMetrics "github.com/ChipArtem/Metric/internal/agent/delault_metrics"
@@ -33,21 +30,4 @@ func main() {
 	wg := &sync.WaitGroup{}
 
 	a.Start(ctx, cancel, wg)
-
-	signalChanel := make(chan os.Signal, 1)
-	signal.Notify(signalChanel,
-		syscall.SIGINT,
-		syscall.SIGTERM,
-		syscall.SIGQUIT)
-
-LOOP:
-	for {
-		s := <-signalChanel
-		switch s {
-		case syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
-			cancel()
-			break LOOP
-		}
-	}
-	wg.Wait()
 }

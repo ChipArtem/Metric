@@ -2,9 +2,12 @@ package agent
 
 import (
 	"context"
+	"os"
+	"os/signal"
 	"reflect"
 	"runtime"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/ChipArtem/Metric/internal/models"
@@ -91,7 +94,7 @@ LOOP:
 	}
 }
 
-func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitGroup) {
+func (a *Agent) Start(ctx context.Context, cancel context.CancelFunc, wg *sync.WaitGroup) {
 
 	mCh := make(chan models.Metric, 5)
 	wg.Add(1)
@@ -118,4 +121,21 @@ func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitG
 			}
 		}
 	}()
+
+	signalChanel := make(chan os.Signal, 1)
+	signal.Notify(signalChanel,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+
+LOOP:
+	for {
+		s := <-signalChanel
+		switch s {
+		case syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
+			cancel()
+			break LOOP
+		}
+	}
+	wg.Wait()
 }
