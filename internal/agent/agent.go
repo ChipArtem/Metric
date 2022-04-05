@@ -98,6 +98,7 @@ func (a *Agent) Start(ctx context.Context, cancel context.CancelFunc, wg *sync.W
 
 	mCh := make(chan models.Metric, 5)
 	wg.Add(1)
+
 	go a.startSend(ctx, wg, mCh)
 
 	tPollInter := time.NewTicker(time.Duration(a.pollInterval) * time.Second)

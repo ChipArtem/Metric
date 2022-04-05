@@ -7,14 +7,14 @@ import (
 )
 
 type TrackingMetrics struct {
-	mu            *sync.Mutex
+	mu            sync.Mutex
 	RuntimeMetric []models.RuntimeMetric
 	CustomMetric  []models.CustomMetric
 }
 
 func New() *TrackingMetrics {
 	return &TrackingMetrics{
-		mu:            &sync.Mutex{},
+		mu:            sync.Mutex{},
 		RuntimeMetric: make([]models.RuntimeMetric, 0, 1),
 		CustomMetric:  make([]models.CustomMetric, 0, 1),
 	}

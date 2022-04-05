@@ -8,20 +8,20 @@ import (
 )
 
 type RepoMem struct {
-	mu    *sync.Mutex
+	mu    sync.Mutex
 	store map[string]string
 }
 
 func NewRepoMem() *RepoMem {
-	return &RepoMem{mu: &sync.Mutex{}, store: make(map[string]string)}
+	return &RepoMem{mu: sync.Mutex{}, store: make(map[string]string)}
 }
 
 func (r *RepoMem) AddMetricValue(mtype, name, value string) {
 	r.mu.Lock()
+	defer r.mu.Unlock()
 	m := r.store
 	m[mtype+"#@#@"+name] = value
 	r.store = m
-	r.mu.Unlock()
 }
 
 func (r *RepoMem) GetMetricValue(mtype, name string) (string, error) {
