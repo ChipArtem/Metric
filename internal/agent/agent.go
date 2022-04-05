@@ -97,8 +97,10 @@ func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitG
 	wg.Add(1)
 	go a.startSend(ctx, wg, mCh)
 
-	tickerPollInter := time.NewTicker(time.Duration(a.pollInterval) * time.Second)
-	tickerRepInter := time.NewTicker(time.Duration(a.reportInterval) * time.Second)
+	tPollInter := time.NewTicker(time.Duration(a.pollInterval) * time.Second)
+	tRepInter := time.NewTicker(time.Duration(a.reportInterval) * time.Second)
+	defer tPollInter.Stop()
+	defer tRepInter.Stop()
 
 	wg.Add(1)
 	go func() {
@@ -109,9 +111,9 @@ func (a *Agent) Start(ctx context.Context, cF context.CancelFunc, wg *sync.WaitG
 			case <-ctx.Done():
 				close(mCh)
 				break LOOP
-			case <-tickerPollInter.C:
+			case <-tPollInter.C:
 				a.updateMetric()
-			case <-tickerRepInter.C:
+			case <-tRepInter.C:
 				a.sendMetric(mCh)
 			}
 		}

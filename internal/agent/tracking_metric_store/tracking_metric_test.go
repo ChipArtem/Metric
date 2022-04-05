@@ -4,9 +4,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/ChipArtem/Metric/internal/models"
-
 	"github.com/stretchr/testify/assert"
+
+	"github.com/ChipArtem/Metric/internal/models"
 )
 
 func TestTrackingMetrics_Add(t *testing.T) {
