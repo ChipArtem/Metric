@@ -22,12 +22,12 @@ func (c HTTPclient) SendMetric(m models.Metric) error {
 	url := c.hostURL + "/update/" + m.Type + "/" + m.Name + "/" + m.Value
 	response, err := c.client.Post(url, "text/plain", nil)
 	if err != nil {
-		panic("SendMetric: err:|" + err.Error()+ "|")
+		panic("SendMetric: err:_" + err.Error() + "_")
 		return err
 	}
 
 	if response.StatusCode != http.StatusOK {
-		panic("SendMetric status: |" + url "|")
+		panic("SendMetric status: _" + url + "_")
 		return fmt.Errorf("SendMetric status %v", http.StatusOK)
 	}
 	response.Body.Close()
