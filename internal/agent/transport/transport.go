@@ -23,6 +23,7 @@ func (c HTTPclient) SendMetric(m models.Metric) error {
 	url := fmt.Sprintf("%s/update/%s/%s/%s", c.hostURL, m.Type, m.Name, m.Value)
 
 	response, err := c.client.Post(url, "text/plain", nil)
+
 	if err != nil {
 		return fmt.Errorf("SendMetric: %s", err)
 	}
