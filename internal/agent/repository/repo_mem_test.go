@@ -28,7 +28,7 @@ func TestRepoMem_AddMetricValue(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			r := &RepoMem{
-				mu:    &sync.Mutex{},
+				mu:    sync.Mutex{},
 				store: make(map[string]string),
 			}
 			r.AddMetricValue(tt.args.mtype, tt.args.name, tt.args.value)

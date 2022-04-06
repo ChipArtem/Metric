@@ -81,7 +81,7 @@ func (a *Agent) sendMetric(ch chan<- models.Metric) {
 	}
 }
 
-func (a *Agent) startSend(ctx context.Context, wg *sync.WaitGroup, ch <-chan models.Metric) {
+func (a *Agent) startSend(ctx context.Context, wg *sync.WaitGroup, ch chan models.Metric) {
 	defer wg.Done()
 LOOP:
 	for {
@@ -124,10 +124,12 @@ func (a *Agent) Start(ctx context.Context, cancel context.CancelFunc, wg *sync.W
 	}()
 
 	signalChanel := make(chan os.Signal, 1)
-	signal.Notify(signalChanel,
+	signal.Notify(
+		signalChanel,
 		syscall.SIGINT,
 		syscall.SIGTERM,
-		syscall.SIGQUIT)
+		syscall.SIGQUIT,
+	)
 
 LOOP:
 	for {

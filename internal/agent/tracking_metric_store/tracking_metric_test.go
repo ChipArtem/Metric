@@ -22,7 +22,7 @@ func TestTrackingMetrics_Add(t *testing.T) {
 
 	t.Run("Test metric store", func(t *testing.T) {
 		tr := &TrackingMetrics{
-			mu:            &sync.Mutex{},
+			mu:            sync.Mutex{},
 			RuntimeMetric: make([]models.RuntimeMetric, 0, 1),
 			CustomMetric:  make([]models.CustomMetric, 0, 1),
 		}
