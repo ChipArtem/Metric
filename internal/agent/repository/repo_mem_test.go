@@ -56,7 +56,7 @@ func TestRepoMem_GetMetricValue(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			r := &RepoMem{
-				mu:    &sync.Mutex{},
+				mu:    sync.Mutex{},
 				store: make(map[string]string),
 			}
 			r.AddMetricValue("mtype", "name", "value")
@@ -79,7 +79,7 @@ func TestRepoMem_GetAll(t *testing.T) {
 	}{name: "GetALl!", want: []models.Metric{{Type: "mtype", Name: "name", Value: "value"}}}
 	t.Run(test.name, func(t *testing.T) {
 		r := &RepoMem{
-			mu:    &sync.Mutex{},
+			mu:    sync.Mutex{},
 			store: make(map[string]string),
 		}
 		r.AddMetricValue("mtype", "name", "value")
