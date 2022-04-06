@@ -23,13 +23,13 @@ func (c HTTPclient) SendMetric(m models.Metric) error {
 	fmt.Println("url ", url)
 	response, err := c.client.Post(url, "text/plain", nil)
 	if err != nil {
-		panic("\n" + url + "\n")
-		return fmt.Errorf("SendMetric: %s", err)
+		panic(fmt.Sprintf("SendMetric: %s", err))
+		return err
 	}
 
 	if response.StatusCode != http.StatusOK {
-		panic("\n" + url + "\n")
-		return fmt.Errorf("SendMetric status OK")
+		panic(fmt.Sprintf("SendMetric: %v", err))
+		return fmt.Errorf("SendMetric status %v", http.StatusOK)
 	}
 	response.Body.Close()
 	return nil
