@@ -21,7 +21,7 @@ func main() {
 	a := agent.New(
 		2,
 		10,
-		transport.NewHTTPClient("127.0.0.1:8080", &http.Client{}),
+		transport.NewHTTPClient("http://127.0.0.1:8080", &http.Client{}),
 		repositiry.NewRepoMem(),
 		listMetricForTrack)
 

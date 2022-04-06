@@ -45,7 +45,7 @@ func Test_agent(t *testing.T) {
 		UpdateFunc: func(args ...interface{}) (string, error) {
 			return "10", nil
 		}})
-
+	fmt.Println("start ", svr.URL)
 	a := agent.New(
 		1,
 		2,
@@ -58,8 +58,7 @@ func Test_agent(t *testing.T) {
 	go a.Start(ctx, cancel, wg)
 
 	actualValue := <-ch
-	fmt.Println("END")
-	assert.Equal(t, "/update/counter/PollCount/10", actualValue, "expect agent send 10 to chanel")
+	assert.Equal(t, "/update/counter/PollCount/10", actualValue, "expect agent send 10 to server")
 	cancel()
 	svr.Close()
 	close(ch)
