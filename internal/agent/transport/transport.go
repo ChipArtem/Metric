@@ -19,15 +19,15 @@ func NewHTTPClient(url string, client *http.Client) HTTPclient {
 }
 
 func (c HTTPclient) SendMetric(m models.Metric) error {
-	url := fmt.Sprintf("%s/update/%s/%s/%s", c.hostURL, m.Type, m.Name, m.Value)
+	url := c.hostURL + "/update/" + m.Type + "/" + m.Name + "/" + m.Value
 	response, err := c.client.Post(url, "text/plain", nil)
 	if err != nil {
-		panic(fmt.Sprintf("SendMetric: %s", err))
+		panic("SendMetric: err:|" + err.Error()+ "|")
 		return err
 	}
 
 	if response.StatusCode != http.StatusOK {
-		panic(fmt.Sprintf("SendMetric status: %v", url))
+		panic("SendMetric status: |" + url "|")
 		return fmt.Errorf("SendMetric status %v", http.StatusOK)
 	}
 	response.Body.Close()
