@@ -32,6 +32,6 @@ func (c HTTPclient) SendMetric(m models.Metric) error {
 	if r.StatusCode() != http.StatusOK {
 		return fmt.Errorf("SendMetric status %v", http.StatusOK)
 	}
-	response.Body.Close()
+	// response.Body.Close()
 	return nil
 }
