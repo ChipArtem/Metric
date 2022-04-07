@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/ChipArtem/Metric/internal/server/validator"
-
 	"github.com/gorilla/mux"
+
+	"github.com/ChipArtem/Metric/internal/server/validator"
 )
 
 func (m *metricHandler) MiddlewareCheckHost(next http.Handler) http.Handler {

@@ -7,10 +7,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/gorilla/mux"
+
 	"github.com/ChipArtem/Metric/internal/models"
 	"github.com/ChipArtem/Metric/internal/server/validator"
-
-	"github.com/gorilla/mux"
 )
 
 type MetricBusinessLogicer interface {

@@ -15,7 +15,8 @@ type HTTPclient struct {
 func NewHTTPClient(url string, client *http.Client) HTTPclient {
 	return HTTPclient{
 		client:  client,
-		hostURL: url}
+		hostURL: url,
+	}
 }
 
 func (c HTTPclient) SendMetric(m models.Metric) error {
