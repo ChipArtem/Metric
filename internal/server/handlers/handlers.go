@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -39,8 +40,9 @@ func (m *metricHandler) GetMetric(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(v))
-
+	if _, err := w.Write([]byte(v)); err != nil {
+		fmt.Printf("\n(m *metricHandler) SetMetric %s", err)
+	}
 }
 
 func (m *metricHandler) SetMetric(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +56,9 @@ func (m *metricHandler) SetMetric(w http.ResponseWriter, r *http.Request) {
 	}
 	m.bl.SetMetric(mType, name, value)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(``))
+	if _, err := w.Write([]byte(``)); err != nil {
+		fmt.Printf("\n(m *metricHandler) SetMetric %s", err)
+	}
 }
 
 func (m *metricHandler) GetAll(w http.ResponseWriter, r *http.Request) {
@@ -63,5 +67,7 @@ func (m *metricHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles(path + "/Metric/internal/template/index.html"))
 
 	metrics := m.bl.GetAll()
-	tmpl.Execute(w, struct{ Metrics []models.Metric }{metrics})
+	if err := tmpl.Execute(w, struct{ Metrics []models.Metric }{metrics}); err != nil {
+		fmt.Printf("\n(m *metricHandler) GetAll %s", err)
+	}
 }

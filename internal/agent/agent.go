@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
 	"reflect"
@@ -89,7 +90,9 @@ LOOP:
 		case <-ctx.Done():
 			break LOOP
 		case v := <-ch:
-			a.transport.SendMetric(v)
+			if err := a.transport.SendMetric(v); err != nil {
+				fmt.Printf("(a *Agent) startSend err: %s", err)
+			}
 		}
 	}
 }
