@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	usecase "github.com/ChipArtem/Metric/internal/server"
 	"github.com/ChipArtem/Metric/internal/server/handlers"
@@ -23,7 +27,26 @@ func main() {
 	mux.HandleFunc("/update/{mtype}/{name}/{value}", handlers.SetMetric).Methods("POST")
 	mux.HandleFunc("/value/{mtype}/{name}", handlers.GetMetric).Methods("GET")
 	mux.Use(handlers.MiddlewareCheckHost)
-	if err := http.ListenAndServe(host, mux); err != nil {
-		log.Fatalf("start server: %v", err)
+	go func() {
+		if err := http.ListenAndServe(host, mux); err != nil {
+			log.Fatalf("start server: %v", err)
+		}
+	}()
+
+	signalChanel := make(chan os.Signal, 1)
+	signal.Notify(
+		signalChanel,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT,
+	)
+LOOP:
+	for {
+		s := <-signalChanel
+		switch s {
+		case syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
+			fmt.Printf("\nRecive signal os: %v", s)
+			break LOOP
+		}
 	}
 }
