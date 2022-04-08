@@ -3,6 +3,7 @@ package agent
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"reflect"
@@ -91,7 +92,7 @@ LOOP:
 			break LOOP
 		case v := <-ch:
 			if err := a.transport.SendMetric(v); err != nil {
-				fmt.Printf("(a *Agent) startSend err: %s", err)
+				log.Printf("(a *Agent) startSend err: %s", err)
 			}
 		}
 	}
@@ -119,8 +120,10 @@ func (a *Agent) Start(ctx context.Context, cancel context.CancelFunc, wg *sync.W
 				close(mCh)
 				break LOOP
 			case <-tPollInter.C:
+				fmt.Fprintf(os.Stdout, " fill metrics in repository \n")
 				a.updateMetric()
 			case <-tRepInter.C:
+				fmt.Fprintf(os.Stdout, " send metrics in channel\n")
 				a.sendMetric(mCh)
 			}
 		}

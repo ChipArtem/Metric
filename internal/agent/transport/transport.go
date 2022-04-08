@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/ChipArtem/Metric/internal/models"
 )
@@ -21,15 +22,15 @@ func NewHTTPClient(url string, client *http.Client) HTTPclient {
 }
 
 func (c HTTPclient) SendMetric(m models.Metric) error {
-	client := &http.Client{}
 	url := c.hostURL + "/update/" + m.Type + "/" + m.Name + "/" + m.Value
-	r, err := client.Post(url, "text/plain", nil)
+	fmt.Fprintf(os.Stdout, "transport url ", url, "\n")
+	r, err := c.client.Post(url, "text/plain", nil)
 	if err != nil {
-		log.Printf("SendMetric error %v", http.StatusOK)
+		fmt.Fprintf(os.Stdout, "transport error ", err.Error(), "\n")
 		return err
 	}
 	if r.StatusCode != http.StatusOK {
-		log.Printf("SendMetric status %v", http.StatusOK)
+		fmt.Fprintf(os.Stdout, "transport status code: ", r.StatusCode, "\n")
 		return fmt.Errorf("SendMetric status %v", http.StatusOK)
 	}
 	r.Body.Close()
